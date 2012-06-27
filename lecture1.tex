@@ -1,0 +1,258 @@
+\documentclass{beamer}
+\mode<presentation>
+%  \usetheme{Warsaw}
+%\usetheme{Goettingen}
+\usetheme{Hannover}
+%\useoutertheme{default}
+
+%\useoutertheme{infolines}
+\useoutertheme{sidebar}
+\usecolortheme{dolphin}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{enumerate}
+
+%some bold math symbosl
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\brho}{\boldsymbol{\rho}}
+\newcommand{\bSigma}{\boldsymbol{\Sigma}}
+\newcommand{\btheta}{\boldsymbol{\theta}}
+\newcommand{\bbeta}{\boldsymbol{\beta}}
+\newcommand{\bmu}{\boldsymbol{\mu}}
+\newcommand{\bW}{\mathbf{W}}
+\newcommand{\one}{\mathbf{1}}
+\newcommand{\bH}{\mathbf{H}}
+\newcommand{\by}{\mathbf{y}}
+\newcommand{\bolde}{\mathbf{e}}
+\newcommand{\bx}{\mathbf{x}}
+
+\newcommand{\cpp}[1]{\texttt{#1}}
+
+\title{Mathematical Biostatistics Boot Camp: Lecture 1, Introduction}
+\author{Brian Caffo}
+\date{\today}
+\institute[Department of Biostatistics]{
+  Department of Biostatistics \\
+  Johns Hopkins Bloomberg School of Public Health\\
+  Johns Hopkins University
+}
+
+
+%\logo{\includegraphics[height=0.5cm]{Logo_PPT.pdf}}
+
+\begin{document}
+\frame{\titlepage}
+
+
+%\section{Table of contents}
+\frame{
+  \frametitle{Table of contents}
+  \tableofcontents
+}
+
+
+
+\section{Biostatistics}
+\frame{ 
+\frametitle{Biostatistics defined}
+From the Johns Hopkins Department of Biostatistics 2007 self
+  study: 
+  \begin{quote}
+    Biostatistics is a theory and methodology for the acquisition
+    and use of quantitative evidence in biomedical research.
+    Biostatisticians develop innovative designs and analytic methods
+    targeted at increasing available information, improving the
+    relevance and validity of statistical analyses, making best use of
+    available information and communicating relevant uncertainties.  
+  \end{quote}
+}
+
+
+\frame{ 
+\frametitle{Example: hormone replacement therapy}
+  A large clinical trial (the Women's Health Initiative)
+  published results in 2002 that contradicted prior evidence on the
+  efficacy of hormone replacement therapy for post menopausal women
+  and suggested a negative impact of HRT for several key health
+  outcomes. {\bf Based on a statistically based protocol, the study was
+  stopped early due an excess number of negative events.} \\ \ \\
+  {\tiny See WHI writing group paper JAMA 2002, Vol 288:321 - 333. for the paper and 
+  Steinkellner et al. Menopause 2012, Vol 19:616 – 621 for a recent discussion
+  of the long term impacts}
+ 
+  }
+
+\frame{ 
+\frametitle{Example: ECMO}
+  In 1985 a group at a major neonatal intensive care center
+  published the results of a trial comparing a standard treatment and
+  a promising new extracorporeal membrane oxygenation treatment (ECMO)
+  for newborn infants with severe respiratory failure. {\bf Ethical
+  considerations lead to a statistical randomization scheme whereby
+  one infant received the control therapy, thereby opening the study 
+  to sample-size based criticisms.} \\ \ \\
+  {\tiny For a review of the statistical discussion and discussion, see Royall Statistical Science 1991, Vol 6, No. 1, 52-88}
+
+}
+
+
+\frame{
+\frametitle{Summary}
+\begin{itemize}
+\item These examples illustrate the central role that biostatistics
+  plays in public health and the importance of performing design,
+  analysis and interpretation of statistical data correctly.
+\item At the Johns Hopkins Bloomberg School of Public Health, 
+	the prevailing philosophy for conducting biostatistics includes:
+  \begin{itemize}
+  \item A tight coupling of the statistical methods with the ethical and scientific goals.
+  \item Emphasizing scientific interpretation of statistical evidence to impact policy.
+  \item Acknowledging and assumptions and evaluating the robustness of conclusions to them.
+  \end{itemize}
+\end{itemize}
+}
+
+
+\section{Experiments}
+\frame{
+\frametitle{Experiments}
+  Consider the outcome of an {\bf experiment} such as:
+  \begin{itemize}
+  \item a collection of measurements from a sampled population
+  \item measurements from a laboratory experiment
+  \item the result of a clinical trial
+  \item the result from a simulated (computer) experiment
+  \item values from hospital records sampled retrospectively
+  \item ...
+  \end{itemize}
+}
+
+\section{Set notation}
+\frame{
+\frametitle{Notation}
+\begin{itemize}
+\item The {\bf sample space}, $\Omega$, is the collection of possible
+  outcomes of an experiment 
+  \begin{list}{}{}
+  \item  Example: die roll $\Omega = \{1,2,3,4,5,6\}$
+  \end{list}
+\item An {\bf event}, say $E$, is a subset of $\Omega$ 
+  \begin{list}{}{}
+  \item Example: die roll is even $E = \{2,4,6\}$
+  \end{list}
+\item An {\bf elementary} or {\bf simple} event is a particular result
+  of an experiment
+  \begin{list}{}{}
+  \item Example: die roll is a four, $\omega = 4$
+  \end{list}
+\item $\emptyset$ is called the {\bf null event} or the {\bf empty set}
+\end{itemize}
+}
+
+
+\frame{
+\frametitle{Interpretation of set operations}
+Normal set operations have particular interpretations in this setting
+\begin{enumerate}
+\item $\omega \in E$ implies that $E$ occurs when $\omega$ occurs
+\item $\omega \not\in E$ implies that $E$ does not occur when $\omega$ occurs
+\item $E \subset F$ implies that the occurrence of $E$ implies the occurrence of $F$
+\item $E \cap F$  implies the event that both $E$ and $F$ occur
+\item $E \cup F$ implies the event that at least one of $E$ or $F$ occur
+\item $E \cap F=\emptyset$ means that $E$ and $F$ are {\bf mutually exclusive}, or cannot both occur\item $E^c$ or $\bar E$ is the event that $E$ does not occur
+\end{enumerate}
+}
+
+
+\frame{
+\frametitle{Set theory facts}
+\begin{itemize}
+\item DeMorgan's laws
+  \begin{list}{}{}
+  \item $(A \cap B)^c = A^c \cup B^c$
+  \item $(A \cup B)^c = A^c \cap B^c$
+  \item Example: If an alligator or a turtle you are not[$(A \cup B)^c$]
+    then you are not an alligator and you are also not a turtle ($A^c \cap B^c$)
+  \item Example: If your car is not both hybrid and diesel [$(A \cap B)^c$]
+    then your car is either not hybrid or not diesel ($A^c \cup B^c$)
+  \end{list}
+\item $(A^c)^c = A$
+\item $(A \cup B) \cap C = (A \cap C) \cup (B \cap C)$
+\end{itemize}
+}
+
+\section{Probability}
+\frame{
+\frametitle{Probability: some discussion}
+\begin{itemize}
+\item Useful strategy used in much of science:\\
+For a given experiment
+  \begin{itemize}
+  \item attribute all that is known or theorized to a systematic model (mathematical function)
+  \item attribute everything else to randomness, {\em even if the
+      process under study is known not the be ``random'' in any sense
+      of the word}
+  \item Use probability to quantify the uncertainty in your conclusions
+  \item Evaluate the sensitivity of your conclusions to the assumptions of your model
+  \end{itemize}
+\end{itemize}
+}
+
+
+\frame{
+\frametitle{Probability: some discussion}
+\begin{itemize}
+\item Probability has been found extraordinarily useful, even if true {\em
+    randomness} is an elusive, undefined, quantity
+\item {\em frequentist} interpretation of probability
+  \begin{itemize}
+  \item A probability is the long proportion of times an event will occur in 
+    repeated identical repetitions of an experiment
+  \end{itemize}
+\item Other definitions of probability exists
+\item There is not agreement, at all, in how probabilities should be interpreted
+\item There is (nearly) complete agreement on the mathematical rules probability must follow
+\end{itemize}
+}
+
+
+\frame{
+\frametitle{Probability: some discussion}
+\begin{itemize}
+\item An alternative interpretation of probability is so-called
+  ``Bayesian''
+\item Named after the $18^{th}$ century Presbyterian Minister / mathematician
+  Thomas Bayes
+\item A Bayesian interprets probability as a subjective degree of belief
+  \begin{itemize}
+  \item For the same event, two separate people could have differing
+    probabilities
+  \item Bayesian interpretations of probabilities avoid some of the philosophical
+    difficulties of frequency interpretations
+  \end{itemize}
+\end{itemize}
+}
+
+
+\frame{
+\frametitle{Probability: a useful exercise}
+In the first few lectures, we'll largely talk about the mathematics and
+basic uses of probability. 
+However, this is only a small starting point in the use of probability
+in data analyses. Keep the following questions in the back of your mind
+as we cover using probability for data analyses. 
+\begin{itemize}
+\item What is being modeled as random? 
+\item Where does this attributed randomness arise from?
+\item Where did the systematic model components arise from?
+\item How did observational units come to be in the study and is there importance to the missing data points?
+\item Do the results generalize beyond the study in question?
+\item Were  important variables unaccounted for in the model?
+\item How drastically would inferences change depending on the answers to the previous questions?
+\end{itemize}
+}
+
+\end{document}
+ 
