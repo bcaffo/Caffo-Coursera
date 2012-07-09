@@ -1,4 +1,4 @@
-\documentclass{beamer}
+\documentclass[aspectratio=169]{beamer}
 \mode<presentation>
 \usetheme{Hannover}
 \useoutertheme{sidebar}
@@ -105,6 +105,16 @@ You should be able to prove all of the following:
 \item $P(\cup_{i=1}^n E_i) \leq \sum_{i=1}^n P(E_i)$
 \item $P(\cup_{i=1}^n E_i) \geq \max_i P(E_i)$
 \end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Example} 
+Proof that $P(E) = 1 - P(E^c)$
+\end{frame}
+
+\begin{frame}
+\frametitle{Example} 
+Proof that $P(E) = 1 - P(E^c)$
 \end{frame}
 
 \begin{frame}
@@ -217,14 +227,22 @@ $$
 p(x) = (1/2)^{x} (1/2)^{1-x} ~~\mbox{ for }~~x = 0,1
 $$
 Suppose that we do not know whether or not the coin is fair; Let
-$\theta$ be the probability of a head
+$\theta$ be the probability of a head expressed as a proportion
+(between 0 and 1).
 $$
 p(x) = \theta^{x} (1 - \theta)^{1-x} ~~\mbox{ for }~~x = 0,1
 $$
 \end{frame}
 
-
-
+\begin{frame}
+ \frametitle{Example}
+For the unfair coin \\ \ \\
+$p(0) = 1 - \theta$ and $p(1) = \theta$ \\ \ \\
+so \\ \ \\
+$p(x) > 0$ for $x=0,1$ \\ \ \\
+and \\ \ \\
+$p(0) + p(1) = \theta + (1 - \theta) = 1$
+\end{frame}
 
 \begin{frame}
 \frametitle{PDF}
@@ -268,6 +286,12 @@ $$
 \frametitle{Example continued}
 What's the probability that a randomly selected person from this distribution 
 survives more than 6 years?
+\end{frame}
+
+\begin{frame}
+\frametitle{Example continued}
+What's the probability that a randomly selected person from this distribution 
+survives more than 6 years?
 $$
 P(X \geq 6) = \int_6^\infty  \frac{e^{-t/5}}{5}dt =  \left. -e^{-t/5} \right|_{6}^\infty = e^{-6/5} \approx .301.
 $$
@@ -302,6 +326,16 @@ $$
 \end{frame}
 
 \begin{frame}
+\frametitle{Example continued}
+   \includegraphics[width=3.5in]{exponential.pdf}
+\end{frame}
+
+\begin{frame}
+\frametitle{Example}
+What are the survival function and CDF from the exponential density considered before?
+\end{frame}
+
+\begin{frame}
 \frametitle{Example}
 What are the survival function and CDF from the exponential density considered before?
 $$
@@ -332,6 +366,19 @@ $$
 \end{frame}
 
 \begin{frame}
+\frametitle{Example continued}
+   \includegraphics[width=3.5in]{exponential.pdf}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Example}
+\begin{itemize}
+\item  What is the $25^{th}$ percentile of the exponential survival distribution considered before?
+\end{itemize}
+\end{frame}
+
+\begin{frame}
 \frametitle{Example}
 \begin{itemize}
 \item  What is the $25^{th}$ percentile of the exponential survival distribution considered before?
@@ -345,6 +392,19 @@ resulting in the solution $x = -\log(.75) \times 5 \approx 1.44$
 subjects from this population live less than 1.44 years
 \item R can approximate exponential quantiles for you \\
 \texttt{qexp(.25, 1/5)}
+\end{itemize}
+\end{frame}
+
+
+\section{Summary}
+\begin{frame}
+\frametitle{Probability models}
+\begin{itemize}
+\item You might be wondering at this point ``I've heard of a median before, it didn't require integration. Where's the data?''
+\item We're referring to are {\bf population quantities}. Therefore, the median being
+	discussed is the {\bf population median}.
+\item A probability model connects the data to the population to the population using assumptions.
+\item Therefore the median we're discussing is the {\bf estimand}, the sample median will be the {\bf estimator}
 \end{itemize}
 \end{frame}
 
