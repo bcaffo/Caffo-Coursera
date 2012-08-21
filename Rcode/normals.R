@@ -1,0 +1,8 @@
+postscript("normals.eps", paper = "letter", horizontal = FALSE)
+xVals <- seq(-5, 5, length = 1000)
+plot(xVals, dnorm(xVals), type = "l", lwd = 2)
+lines(xVals, dnorm(xVals, sd = 1.5), lwd = 2, lty = 2)
+lines(xVals, dnorm(xVals, sd = 2), lwd = 2, lty = 3)
+lines(xVals, dnorm(xVals, sd = 2.5), lwd = 2, lty = 4)
+legend(-4, .4, c("1", "1.5", "2", "2.5"), lty = 1 : 4, lwd = 2)
+dev.off()

@@ -1,0 +1,13 @@
+zvals <- seq(-3, 3, by = .001)
+dvals <- dnorm(zvals)
+#postscript("stdNormal.eps", width = 5, height = 5, horizontal = FALSE)
+plot(zvals, dvals, type = "l", xlab = "z", ylab = "density", frame = F, lwd = 3)
+abline(v = 0)
+abline(v = 1)
+abline(v = -1)
+abline(v = 2)
+abline(v = -2)
+abline(v = 3)
+abline(v = -3)
+#dev.off()
+
