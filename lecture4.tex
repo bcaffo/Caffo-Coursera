@@ -1,0 +1,319 @@
+\documentclass[aspectratio=169]{beamer}
+\mode<presentation>
+\usetheme{Hannover}
+\useoutertheme{sidebar}
+\usecolortheme{dolphin}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{enumerate}
+
+%some bold math symbosl
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cor}{\mathrm{Cor}}
+\newcommand{\brho}{\boldsymbol{\rho}}
+\newcommand{\bSigma}{\boldsymbol{\Sigma}}
+\newcommand{\btheta}{\boldsymbol{\theta}}
+\newcommand{\bbeta}{\boldsymbol{\beta}}
+\newcommand{\bmu}{\boldsymbol{\mu}}
+\newcommand{\bW}{\mathbf{W}}
+\newcommand{\one}{\mathbf{1}}
+\newcommand{\bH}{\mathbf{H}}
+\newcommand{\by}{\mathbf{y}}
+\newcommand{\bolde}{\mathbf{e}}
+\newcommand{\bx}{\mathbf{x}}
+
+\newcommand{\cpp}[1]{\texttt{#1}}
+
+
+
+\title{Mathematical Biostatistics Boot Camp: Lecture 4, Random Vectors }
+
+\author{Brian Caffo}
+\date{\today}
+\institute[Department of Biostatistics]{
+  Department of Biostatistics \\
+  Johns Hopkins Bloomberg School of Public Health\\
+  Johns Hopkins University
+}
+
+
+\begin{document}
+
+\frame{\titlepage}
+
+
+\section{Table of contents}
+\frame{
+  \frametitle{Table of contents}
+  \tableofcontents
+}
+
+\section{Random vectors}
+\begin{frame}\frametitle{Random vectors}
+  \begin{itemize}
+  \item Random vectors are simply random variables collected into a vector
+    \begin{itemize}
+    \item For example if $X$ and $Y$ are random variables $(X, Y)$ is a random vector
+    \end{itemize}
+  \item Joint density $f(x, y)$ satisfies $f > 0$ and $\int \int f(x, y) dx dy = 1$
+  \item For discrete random variables $\sum \sum f(x, y) = 1$
+  \item In this lecture we focus on {\bf independent} random variables where $f(x, y) = f(x)g(y)$
+  \end{itemize}
+\end{frame}
+
+\section{Independence}
+\subsection{Independent events}
+\begin{frame}\frametitle{Independent events}
+  \begin{itemize}
+  \item Two events $A$ and $B$ are {\bf independent} if $$P(A \cap B) = P(A)P(B)$$
+  \item Two random variables, $X$ and $Y$ are independent if for any two sets $A$ and $B$
+    $$P([X \in A] \cap [Y \in B]) = P(X\in A)P(Y\in B)$$
+  \item If $A$ is independent of $B$ then 
+    \begin{itemize}
+    \item $A^c$ is independent of $B$ 
+    \item $A$ is independent of $B^c$
+    \item $A^c$ is independent of $B^c$
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}\frametitle{Example}
+  \begin{itemize}
+  \item What is the probability of getting two consecutive heads?
+  \item $A = \{\mbox{Head on flip 1}\}$ ~ $P(A) = .5$
+  \item $B = \{\mbox{Head on flip 2}\}$ ~ $P(B) = .5$
+  \item $A \cap B = \{\mbox{Head on flips 1 and 2}\}$
+  \item $P(A \cap B) = P(A)P(B) = .5 \times .5 = .25$ 
+  \end{itemize}
+\end{frame}
+
+\begin{frame} \frametitle{Example}
+  \begin{itemize}
+     \item Volume 309 of {\em Science} reports on a physician who was
+       on trial for expert testimony in a criminal trial
+     \item Based on an estimated prevalence of sudden infant death
+       syndrome of $1$ out of $8,543$, Dr Meadow testified that 
+       that the probability of a mother having two children with SIDS
+       was $\left(\frac{1}{8,543}\right)^2$
+     \item The mother on trial was convicted of murder
+     \item What was Dr Meadow's mistake(s)?
+  \end{itemize}
+\end{frame}
+
+\begin{frame}\frametitle{Example: continued}
+  \begin{itemize}
+    \item For the purposes of this class, the principal mistake was to
+      {\em assume} that the probabilities of having SIDs within a family are
+      independent
+    \item That is, $P(A_1 \cap A_2)$ is not necessarily equal to $P(A_1)P(A_2)$
+    \item Biological processes that have a believed genetic or familiar
+      environmental component, of course, tend to be dependent within families
+    \item In addition, the estimated prevalence was obtained from an
+      {\em unpublished} report on single cases; hence having no information about
+      recurrence of SIDs within families
+  \end{itemize}
+  
+\end{frame}
+\subsection{Independent random variables}
+\begin{frame}\frametitle{Useful fact}
+  \begin{itemize}
+  \item   We will use the following fact extensively in this class:
+  \end{itemize}
+  \begin{quote}
+    If a collection of random variables $X_1, X_2, \ldots, X_n$ are
+    independent, then their joint distribution is the product of their
+    individual densities or mass functions \ \\ \ \\
+    
+    That is, if $f_i$ is the
+    density for random variable $X_i$ we have that
+    $$
+    f(x_1,\ldots, x_n) = \prod_{i=1}^n f_i(x_i)
+    $$
+      \end{quote}
+\end{frame}
+
+
+\subsection{IID random variables}
+\begin{frame}\frametitle{IID random variables}
+  \begin{itemize}
+  \item In the instance where $f_1 = f_2 = \ldots = f_n$ we say that the $X_i$ are {\bf iid}
+    for {\em independent} and {\em identically distributed}
+  \item iid random variables are the default model for random samples
+  \item Many of the important theories of statistics are founded on assuming that
+    variables are iid
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Example}
+  \begin{itemize}
+  \item Suppose that we flip a biased coin with success probability $p$ $n$
+  times, what is the join density of the collection of
+  outcomes?
+  \item These random variables are iid with densities $p^{x_i} (1 - p)^{1-x_i}$ 
+  \item Therefore
+  $$
+  f(x_1,\ldots,x_n) = \prod_{i=1}^n p^{x_i} (1 - p)^{1-x_i} = p^{\sum x_i} (1 - p)^{n - \sum x_i}
+  $$
+\end{itemize}
+\end{frame}
+
+\section{Correlation}
+\begin{frame}\frametitle{Correlation}
+  \begin{itemize}
+  \item The {\bf covariance} between two random variables $X$ and $Y$ is defined
+    as 
+    $$
+    \Cov(X, Y) = E[(X - \mu_x)(Y - \mu_y)] = E[X Y] - E[X]E[Y]
+    $$
+  \item The following are useful facts about covariance
+    \begin{enumerate}
+    \item $\Cov(X, Y) = \Cov(Y, X)$
+    \item $\Cov(X, Y)$ can be negative or positive
+    \item $|\Cov(X, Y)| \leq \sqrt{\Var(X) \Var(y)}$
+    \end{enumerate}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}\frametitle{Correlation}
+  \begin{itemize}
+  \item The {\bf correlation} between $X$ and $Y$ is 
+    $$
+    \Cor(X, Y) = \Cov(X, Y) / \sqrt{\Var(X) \Var(y)}
+    $$
+    \begin{enumerate}
+    \item $-1 \leq \Cor(X, Y) \leq 1$
+    \item $\Cor(X, Y) = \pm 1$ if and only if $X = a + bY$ for some constants $a$ and $b$
+    \item $\Cor(X, Y)$ is unitless
+    \item $X$ and $Y$ are {\bf uncorrelated} if $\Cor(X, Y) = 0$ 
+    \item $X$ and $Y$ are more positively correlated, the closer $\Cor(X,Y)$ is to $1$
+    \item $X$ and $Y$ are more negatively correlated, the closer $\Cor(X,Y)$ is to $-1$
+    \end{enumerate}
+  \end{itemize}
+\end{frame}
+
+\section{Variance and correlation properties}
+\begin{frame}\frametitle{Some useful results}
+  \begin{itemize}
+  \item Let $\{X_i\}_{i=1}^n$ be a collection of random variables
+  \begin{itemize}
+  \item When the $\{X_i\}$ are uncorrelated 
+    $$\Var\left(\sum_{i=1}^n a_i X_i + b\right) = \sum_{i=1}^n a_i^2
+    \Var(X_i)$$  
+  \item Otherwise
+    \begin{eqnarray*}
+&   &  \Var\left(\sum_{i=1}^n a_i X_i + b\right)\\
+& = &\sum_{i=1}^n a_i^2 \Var(X_i) + 2 \sum_{i=1}^{n-1} \sum_{j=i}^n a_i a_j \Cov(X_i, X_j)
+    \end{eqnarray*}
+  \item If the $X_i$ are iid with variance $\sigma^2$ then $\Var(\bar X) = \sigma^2/n$ and
+    $E[S^2] = \sigma^2$
+  \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}\frametitle{Example proof}
+  Prove that $\Var(X+Y) = \Var(X) + \Var(Y) + 2 \Cov(X, Y)$
+\hspace{-1in}  \begin{eqnarray*}
+    &   & \Var(X + Y) \\ \\
+    & = & E[(X + Y)(X + Y)] - E[X + Y]^2 \\ \\
+    & = & E[X^2 + 2XY + Y^2] - (\mu_x + \mu_y)^2 \\ \\
+    & = & E[X^2 + 2XY + Y^2] - \mu_x^2 - 2\mu_x\mu_y -\mu_y^2 \\ \\
+    & = & (E[X^2]-\mu_x^2) + (E[Y^2] - \mu_y^2) + 2(E[XY] - \mu_x\mu_y)\\ \\
+    & = & \Var(X) + \Var(Y) + 2 \Cov(X, Y)
+  \end{eqnarray*}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Result}
+  \begin{itemize}
+  \item A commonly used subcase from these properties is that {\em if a collection of 
+    random variables $\{X_i\}$ are uncorrelated}, then the variance of the sum is the
+    sum of the variances
+    $$
+    \Var\left(\sum_{i=1}^n X_i \right) = \sum_{i=1}^n \Var(X_i)
+    $$
+  \item Therefore, it is sums of variances that tend to be useful, not
+    sums of standard deviations; that is, the standard deviation of the
+    sum of bunch of independent random variables is the square root of the
+    sum of the variances, not the sum of the standard deviations
+  \end{itemize}
+\end{frame}
+
+\section{Variances properties of sample means}
+\begin{frame}\frametitle{The sample mean}
+  Suppose $X_i$ are iid with variance $\sigma^2$
+  \begin{eqnarray*}
+    \Var(\bar X) & = & \Var \left( \frac{1}{n}\sum_{i=1}^n X_i \right)\\ \\
+    & = & \frac{1}{n^2} \Var\left(\sum_{i=1}^n X_i \right)\\ \\
+    & = & \frac{1}{n^2} \sum_{i=1}^n \Var(X_i) \\ \\
+    & = & \frac{1}{n^2} \times n\sigma^2 \\ \\
+    & = & \frac{\sigma^2}{n}
+  \end{eqnarray*}
+\end{frame}
+
+
+\begin{frame}\frametitle{Some comments}
+  \begin{itemize}
+  \item When $X_i$ are independent with a common variance $\Var(\bar X) = \frac{\sigma^2}{n}$
+  \item $\sigma/\sqrt{n}$ is called {\bf the standard error} of the sample mean
+  \item The standard error of the sample mean is the standard deviation of the distribution of the sample mean
+  \item $\sigma$ is the standard deviation of the distribution of a single observation
+  \item Easy way to remember, the sample mean has to be less variable than a single observation, therefore its
+    standard deviation is divided by a $\sqrt{n}$
+  \end{itemize}
+\end{frame}
+
+\section{The sample variance}
+\begin{frame}\frametitle{The sample variance}
+  \begin{itemize}
+  \item The {\bf sample variance} is defined as 
+    $$
+    S^2 =   \frac{\sum_{i=1}^n (X_i - \bar X)^2}{n-1} 
+    $$
+  \item The sample variance is an estimator of $\sigma^2$
+  \item The numerator has a version that's quicker for calculation
+    $$
+    \sum_{i=1}^n (X_i - \bar X)^2 = \sum_{i=1}^n X_i^2 - n \bar X^2
+    $$
+  \item The sample variance is (nearly) the mean of the squared deviations from the mean
+  \end{itemize}
+\end{frame}
+
+\begin{frame}\frametitle{The sample variance is unbiased}
+  \begin{eqnarray*}
+    E\left[\sum_{i=1}^n (X_i - \bar X)^2\right] & = & \sum_{i=1}^n E\left[X_i^2\right] - n E\left[\bar X^2\right] \\ \\
+    & = & \sum_{i=1}^n \left\{\Var(X_i) + \mu^2\right\} - n \left\{\Var(\bar X) + \mu^2\right\} \\ \\
+    & = & \sum_{i=1}^n \left\{\sigma^2 + \mu^2\right\} - n \left\{\sigma^2 / n + \mu^2\right\} \\ \\
+    & = & n \sigma^2 + n \mu ^ 2 - \sigma^2 - n \mu^2 \\ \\
+    & = & (n - 1) \sigma^2
+  \end{eqnarray*}
+\end{frame}
+
+\section{Some discussion}
+\begin{frame}\frametitle{Hoping to avoid some confusion}
+  \begin{itemize}
+  \item Suppose $X_i$ are iid with mean $\mu$ and variance $\sigma^2$
+  \item $S^2$ estimates $\sigma^2$
+  \item The calculation of $S^2$ involves dividing by $n-1$
+  \item $S / \sqrt{n}$ estimates $\sigma / \sqrt{n}$ the standard error of the mean
+  \item $S / \sqrt{n}$ is called the sample standard error (of the mean)
+  \end{itemize}
+\end{frame} 
+
+\begin{frame}\frametitle{Example} 
+  \begin{itemize}
+  \item In a study of 495 organo-lead workers, the
+    following summaries were obtained for TBV in $cm^3$
+  \item mean = $1151.281$
+  \item sum of squared observations = $662361978$
+  \item sample sd = $\sqrt{(662361978 - 495 \times 1151.281^2)/494} = 112.6215$
+  \item estimated se of the mean = $112.6215 / \sqrt{495} = 5.062$
+  \end{itemize}
+\end{frame}
+
+\end{document}
+

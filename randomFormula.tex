@@ -53,14 +53,27 @@
 This document contains random formulae images I used in the notes.
 \end{frame}
 
-\section{Lecture 2}
 \begin{frame}
 $$A = \{1, 2\}$$
 $$B = \{1, 2, 3\}$$
 
 \end{frame}
 
+\begin{frame}
+\begin{eqnarray}
+E[X^2] & = & \int_0^1 x^2 dx \\
+       & = & \left. \frac{x^3}{3} \right|_0^1 = \frac{1}{3}
+\end{eqnarray}
+\end{frame}
 
+
+\begin{frame}
+$$\frac{|x - \mu|}{k\sigma} > 1$$ 
+Over the set $\{x : |x - \mu | > k\sigma\}$ \\
+$$\frac{(x - \mu)^2}{k^2\sigma^2} > 1$$
+$$\frac{1}{k^2\sigma^2} \int_{-\infty}^\infty (x - \mu)^2 f(x) dx$$
+$$\frac{1}{k^2\sigma^2} E[(X - \mu)^2] = \frac{1}{k^2\sigma^2} \Var(X)$$
+\end{frame}
 
 \end{document}
 
