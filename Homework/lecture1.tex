@@ -1,0 +1,25 @@
+\documentclass[12pt]{article}
+\usepackage{geometry,amsmath,amssymb, graphicx, natbib, float, enumerate}
+\geometry{margin=1in}
+\renewcommand{\familydefault}{cmss}
+\restylefloat{table}
+\restylefloat{figure}
+
+\newcommand{\code}[1]{\texttt{#1}}
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\logit}{\mathrm{logit}}
+
+\begin{document}
+\noindent {\bf Lecture 1 Homework. Basic prerequisites, use any resource that you'd like}
+\begin{enumerate}[1.]
+\item Prove DeMorgan's laws. That is, that $(A \cup B ) ^c = A^c \cap B^c$ and $(A \cap B) ^ c = A^c \cup B^c$.
+\item Prove that $(A^c)^c = A$.
+\item Prove that $(A \cup B) \cap C = (A\cap C) \cup (B\cap C)$.
+\item Show that the function $\frac{1}{\beta} \exp(-x / \beta)$ integrates to $1$ over $x > 0$ for $\beta > 0$.
+\item Show that the function $\frac{e^{-x}}{\left(1+  e^{-x} \right)^2}$ integrates to $1$ over $-\infty < x < \infty$.
+\item Show that the derivative of the function $(1 + e^{-x})^{-1}$ is the function from the previous problem.
+\item Plot the functions from the previous 3 problems in R.
+\item Argue that $\sum_{x=0}^\infty \frac{e^{-\lambda}\lambda^x}{x!} = 1$ for $\lambda > 0$.
+\item Argue that $\sum_{x=0}^\infty p(1 - p)^{x-1} = 1$ 
+\end{enumerate}
+\end{document}
