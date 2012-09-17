@@ -193,21 +193,21 @@ $$
 \end{itemize}
 \end{frame}
 
-\begin{frame}\frametitle{Example}
-\begin{itemize}
-\item Let $f(x, y) = 1 / \pi r^2$ for $x^2 + y^2 \leq r^2$
-\item $X$ and $Y$ are uniform on a circle with radius $r$
-\item What is the conditional density of $X$ given that $Y=0$?
-\item Probably easiest to think geometrically
-$$
-f(x ~|~ y = 0) \propto 1 ~~\mbox{for}~~ -r^2 \leq x \leq r^2
-$$
-\item Therefore
-$$
-f(x ~|~ y = 0) = \frac{1}{2r^2}~~\mbox{for}~~ -r^2 \leq x \leq r^2
-$$
-\end{itemize}
-\end{frame}
+%\begin{frame}\frametitle{Example}
+%\begin{itemize}
+%\item Let $f(x, y) = 1 / \pi r^2$ for $x^2 + y^2 \leq r^2$
+%\item $X$ and $Y$ are uniform on a circle with radius $r$
+%\item What is the conditional density of $X$ given that $Y=0$?
+%\item Probably easiest to think geometrically
+%$$
+%f(x ~|~ y = 0) \propto 1 ~~\mbox{for}~~ -r^2 \leq x \leq r^2
+%$$
+%\item Therefore
+%$$
+%f(x ~|~ y = 0) = \frac{1}{2r^2}~~\mbox{for}~~ -r^2 \leq x \leq r^2
+%$$
+%\end{itemize}
+%\end{frame}
 
 \section{Bayes' Rule}
 \begin{frame}\frametitle{Bayes' rule}
@@ -221,7 +221,7 @@ $$
   $$
 \item If $y$ is discrete
   $$
-  f(y ~|~ x) = \frac{f(x ~|~ y) f(y)}{\sum_y f(x ~|~ t) f(t)}  
+  f(y ~|~ x) = \frac{f(x ~|~ y) f(y)}{\sum_t f(x ~|~ t) f(t)}  
   $$
 \end{itemize}
 \end{frame}
