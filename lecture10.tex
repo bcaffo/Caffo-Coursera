@@ -150,7 +150,34 @@
 \end{frame}
 
 \begin{frame}\frametitle{Example}
+Example from Rosner Fundamentals of Biostatistics, Page 304
+\begin{itemize}
+\item Comparing SBP for 8 oral contraceptive users versus 21 controls
+\item $\bar X_{OC} = 132.86$ mmHg with $s_{OC} = 15.34$ mmHg
+\item $\bar X_{C} = 127.44$ mmHg with $s_{C} = 18.23$ mmHg
+\item Pooled variance estimate
+$$
+s_p^2 = \frac{7 (15.34)^2 + 20 (18.23)^2}{8 + 21 - 2} = 307.8
+$$ 
+\item $t_{27,.975} = 2.052$ (in R, \texttt{qt(.975, df = 27)})
+\item Interval
+$$
+132.86 - 127.44 \pm 2.052 \left\{307.8 \left( \frac{1}{8} + {1}{21}\right)^{1/2} \right\}
+= [-9.52, 20.36]
+$$
+\end{itemize}
 \end{frame}
+
+\begin{frame}\frametitle{Likelihood plot for the effect size}
+Reasonable values for the effect size from the confidence interval
+$$
+[-9.52, 20.36] / sp = [-.54, 1.16]
+$$
+\begin{center}
+\includegraphics[scale=.3]{Lecture10ESlikelihood.pdf}
+\end{center}
+\end{frame}
+
 
 \section{Unequal variances}
 \begin{frame}\frametitle{Unequal variances}
@@ -171,5 +198,21 @@
     $$
   \end{itemize}
 \end{frame}
+
+
+\begin{frame}\frametitle{Example}
+\begin{itemize}
+\item Comparing SBP for 8 oral contraceptive users versus 21 controls
+\item $\bar X_{OC} = 132.86$ mmHg with $s_{OC} = 15.34$ mmHg
+\item $\bar X_{C} = 127.44$ mmHg with $s_{C} = 18.23$ mmHg
+\item $df=15.04$, $t_{15.04, .975} = 2.13$
+\item Interval
+$$
+132.86 - 127.44 \pm 2.13 \left(\frac{15.34^2}{8} + \frac{18.23^2}{21} \right)^{1/2}
+= [-8.91, 19.75]
+$$
+\end{itemize}
+\end{frame}
+
 \end{document}
 
