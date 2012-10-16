@@ -1,0 +1,241 @@
+\documentclass[aspectratio=169]{beamer}
+\mode<presentation>
+\usetheme{Hannover}
+\useoutertheme{sidebar}
+\usecolortheme{dolphin}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{enumerate}
+
+
+% some bold math symbosl
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Cor}{\mathrm{Cor}}
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\brho}{\boldsymbol{\rho}}
+\newcommand{\bSigma}{\boldsymbol{\Sigma}}
+\newcommand{\btheta}{\boldsymbol{\theta}}
+\newcommand{\bbeta}{\boldsymbol{\beta}}
+\newcommand{\bmu}{\boldsymbol{\mu}}
+\newcommand{\bW}{\mathbf{W}}
+\newcommand{\one}{\mathbf{1}}
+\newcommand{\bH}{\mathbf{H}}
+\newcommand{\by}{\mathbf{y}}
+\newcommand{\bolde}{\mathbf{e}}
+\newcommand{\bx}{\mathbf{x}}
+
+\newcommand{\cpp}[1]{\texttt{#1}}
+
+\title{Mathematical Biostatistics Bootcamp: Lecture 14, Logs}
+\author{Brian Caffo}
+\date{\today}
+\institute[Department of Biostatistics]{
+  Department of Biostatistics \\
+  Johns Hopkins Bloomberg School of Public Health\\
+  Johns Hopkins University
+}
+
+
+\begin{document}
+
+\frame{\titlepage}
+
+
+\section{Table of contents}
+\frame{
+  \frametitle{Table of contents}
+  \tableofcontents
+}
+
+\section{Logs}
+\begin{frame}\frametitle{Logs}
+\begin{itemize}
+\item Recall that $\log_B(x)$ is the number
+  $y$ so that $B^y = x$
+\item Note that you can not take the log of a negative
+  number; $\log_B(1)$ is always 0 and $\log_B(0)$ is $-\infty$
+\item When the base is $B = e$  we
+  write $\log_e$ as just $\log$ or $\ln$
+\item Other useful bases are $10$ (orders of magnitude) or $2$
+\item Recall that $\log(ab) = \log(a) + \log(b)$, $\log(a^b) = b\log(a)$,
+  $\log(a/b) = \log(a) - \log(b)$ ($\log$ turns multiplication into addition,
+  division into subtraction, powers into multiplication)
+\end{itemize}
+\end{frame}
+
+\begin{frame}\frametitle{Some reasons for ``logging'' data}
+\begin{itemize}
+\item To correct for right skewness 
+\item When considering ratios
+\item In settings where errors are feasibly multiplicative, such as
+  when dealing with concentrations or rates
+\item To consider orders of magnitude (using log base 10); for example
+  when considering astronomical distances
+\item Counts are often logged (though note the problem with zero counts)
+\end{itemize}
+\end{frame}
+
+\section{The geometric mean}
+\begin{frame}\frametitle{The geometric mean}
+\begin{itemize}
+\item The (sample) {\bf geometric mean} of a data set $X_1,\ldots,X_n$ is
+  $$
+  \left(\prod_{i=1}^n X_i \right)^{1/n}
+  $$
+\item Note that (provided that the $X_i$ are positive) the log of the
+  geometric mean is
+  $$
+  \frac{1}{n}\sum_{i=1}^n \log(X_i)
+  $$
+\item As the log of the geometric mean is an average, the LLN and clt apply
+  (under what assumptions?)
+\item The geometric mean is always less than or equal to the sample
+  (arithmetic) mean
+\end{itemize}
+\end{frame}
+
+\begin{frame}\frametitle{The geometric mean}
+\begin{itemize}
+\item The geometric mean is often used when the $X_i$ are all multiplicative
+\item Suppose that in a population of interest, the prevalence of a
+  disease rose $2\%$ one year, then fell $1\%$ the next, then rose
+  $2\%$, then rose $1\%$; since these factors act multiplicatively it
+  makes sense to consider the geometric mean
+  $$
+  \left(1.02 \times .99 \times 1.02 \times 1.01\right)^{1/4} = 1.01
+  $$
+  for a $1\%$ geometric mean increase in disease prevalence
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\begin{itemize}
+\item Notice that multiplying the initial prevalence by $1.01^4$ is the
+  same as multiplying by the original four numbers in sequence
+\item Hence $1.01$ is constant factor by which you would need to multiply
+  the initial prevalence each year to achieve the same overall increase
+  in prevalence over a four year period
+\item The arithmetic mean, in contrast, is the constant factor by which
+  your would need to {\em add} each year to achieve the same {\em
+    total} increase ($1.02 + .99 + 1.02 + 1.01$)
+\item In this case the product and hence the geometric mean make more
+  sense than the arithmetic mean
+\end{itemize}
+\end{frame}
+
+\begin{frame}\frametitle{Nifty fact}
+\begin{itemize}
+\item The {\em question corner} (google) at the University of 
+  Toronto's web site (where I got much of this) has a fun interpretation
+  of the geometric mean
+\item If $a$ and $b$ are the lengths of the sides of a rectangle then
+  \begin{itemize}
+  \item The arithmetic mean $(a + b) / 2$ is the length of the sides of the square that
+    has the same perimeter
+  \item The geometric mean $(ab)^{1/2}$ is the length of the sides of
+    the square that has the same area
+  \end{itemize}
+\item So if you're interested in perimeters (adding) use the
+  arithmetic mean; if you're interested in areas (multiplying) use the
+  geometric mean
+\end{itemize}
+\end{frame}
+
+\begin{frame}\frametitle{Asymptotics}
+\begin{itemize}
+\item Note, by the LLN the log of the geometric mean converges to $\mu = E[\log(X)]$
+\item Therefore the geometric mean converges to $\exp\{E[\log(X)]\} =
+  e^\mu$, which is {\em not} the population mean on the natural scale;
+  we call this the population geometric mean (but no one else seems
+  to)
+\item To reiterate
+  $$
+  \exp\{E[\log(x)]\} \neq E[\exp\{\log(X)\}] = E[X]
+  $$
+\item Note if the distribution of $\log(X)$ is symmetric
+  then
+  $$
+  .5 = P(\log X \leq \mu) = P(X \leq e^\mu)
+  $$
+\item Therefore, for log-symmetric distributions the geometric mean is
+  estimating the median
+\end{itemize}
+\end{frame}
+
+\section{GM and the CLT}
+\begin{frame}\frametitle{Using the CLT}
+\begin{itemize}
+\item If you use the CLT to create a confidence interval for the log
+  measurements, your interval is estimating $\mu$, the expected
+  value of the log measurements
+\item If you exponentiate the endpoints of the interval, you are
+  estimating $e^\mu$, the population geometric mean
+\item Recall, $e^\mu$ is the population median when the distribution
+  of the logged data is symmetric
+\item This is especially useful for paired data when their ratio, rather than
+  their difference, is of interest
+\end{itemize}
+\end{frame}
+
+\begin{frame}\frametitle{Example}
+\end{frame}
+
+\section{Comparisons}
+\begin{frame}\frametitle{Comparisons}
+\begin{itemize}
+\item Consider when you have two independent groups, logging the
+  individual data points and creating a confidence interval for the
+  difference in the log means
+\item Prove to yourself that exponentiating the endpoints of this
+  interval is then an interval for the {\em ratio} of the population
+  geometric means, $\frac{e^{\mu_1}}{e^{\mu_2}}$
+\end{itemize}
+\end{frame}
+
+\section{The log-normal distribution}
+\begin{frame}\frametitle{The log-normal distribution}
+\begin{itemize}
+\item A random variable is {\bf log-normally} distributed {\em if its log
+    is a normally distributed random variable}
+\item ``I am log-normal'' means ``take logs of me and then I'll then be normal''
+\item Note log-normal random variables are not logs of normal random variables!!!!!! (You can't even take the log of a normal random variable)
+\item Formally, $X$ is lognormal$(\mu,\sigma^2)$ if $\log(X) \sim \mbox{N}(\mu, \sigma^2)$
+\item If $Y \sim \mbox{N}(\mu,\sigma^2)$ then $X = e^Y$ is log-normal
+\end{itemize}
+\end{frame} 
+
+\begin{frame}\frametitle{The log-normal distribution}
+\begin{itemize}
+\item The log-normal density is
+$$
+\frac{1}{\sqrt{2\pi}} \times \frac{\exp[-\{\log(x) - \mu\}^2/ (2\sigma^2)]}{x}
+~~\mbox{for}~~ 0\leq x \leq \infty
+$$
+\item Its mean is $e^{\mu + (\sigma^2 / 2)}$ and variance is $e^{2\mu + \sigma^2}(e^{ \sigma^2} - 1)$
+\item Its median is $e^\mu$
+\end{itemize}
+\end{frame}
+
+\begin{frame}\frametitle{The log-normal distribution}
+\begin{itemize}
+\item Notice that if we assume that $X_1,\ldots,X_n$ are 
+   log-normal$(\mu,\sigma^2)$
+  then $Y_1 = \log X_1,\ldots, Y_n = \log X_n$ are normally distributed
+  with mean $\mu$ and variance $\sigma^2$
+\item Creating a Gosset's $t$ confidence interval on using the $Y_i$
+  is a confidence interval for $\mu$ the log of the median of the
+  $X_i$
+\item Exponentiate the endpoints of the interval to obtain a confidence interval
+  for $e^\mu$, the median on the original scale
+\item Assuming log-normality, exponentiating $t$ confidence intervals
+  for the difference in two log means again estimates ratios of geometric
+  means 
+\end{itemize}
+\end{frame}
+
+\begin{frame}\frametitle{Example}
+\end{frame}
+
+\end{document}
+
