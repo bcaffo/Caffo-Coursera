@@ -27,7 +27,7 @@
 
 \newcommand{\cpp}[1]{\texttt{#1}}
 
-\title{Mathematical Biostatistics Bootcamp: Lecture 14, Logs}
+\title{Mathematical Biostatistics Boot Camp: Lecture 14, Logs}
 \author{Brian Caffo}
 \date{\today}
 \institute[Department of Biostatistics]{
@@ -179,6 +179,14 @@
 \end{frame}
 
 \begin{frame}\frametitle{Example}
+Rosner, Fundamentals of Biostatistics page 298 gives a paired design comparing SBP for matched oral contraceptive users and controls.
+\begin{itemize}
+\item The geometric mean ration is 1.04 (4\% increase in SBP for the OC users)
+\item The T interval on the difference of the log scale measurements is [0.010, 0.067] log(mm Hg)
+\item Exponentiating yields [1.010, 1.069] (mm Hg). 
+\end{itemize}
+
+
 \end{frame}
 
 \section{Comparisons}
@@ -235,6 +243,15 @@ $$
 \end{frame}
 
 \begin{frame}\frametitle{Example}
+Gray matter volumes investigated
+\begin{itemize}
+\item Took GM volumes for the young and old groups, logged them
+\item Did two independent group intervals, got 
+young [13.24, 13.27] log(cubic cm) and old [13.29, 13.31] log(cubic cm).
+\item  Exponentiating yields [564.4, 577.5] cc, [592.0, 606.9] cc.
+\item Doing a two group T interval on the logged measurements yields [0.032, 0.066] log(cubic cm)
+\item exponentiating this interval yields [1.032, 1.068]
+\end{itemize}
 \end{frame}
 
 \end{document}
