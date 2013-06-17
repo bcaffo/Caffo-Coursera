@@ -1,4 +1,3 @@
-
 var(sample(1 : 6, 10000, replace = TRUE))
 
 barplot(table(sample(1 : 6, 1000, replace = TRUE)), col = "lightblue")
